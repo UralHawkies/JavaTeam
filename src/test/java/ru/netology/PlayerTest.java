@@ -19,5 +19,115 @@ public class PlayerTest {
         assertEquals(expected, actual);
     }
 
+    /**
+     * Тест проверяет повторную установку игры
+     */
+    @Test
+    public void shouldSameGame() {
+        GameStore store = new GameStore();
+        Game game1 = store.publishGame("Нетология Баттл Онлайн", "Аркады");
+
+        Player player1 = new Player("Petya");
+        player1.installGame(game1);
+        player1.play(game1, 3);
+        player1.installGame(game1);
+        player1.play(game1, 4);
+
+        int expected = 7;
+        int actual = player1.sumGenre("Аркады");
+        assertEquals(expected, actual);
+    }
+
+    /**
+     * Тест проверяет суммирование времени в определенный тип игры
+     */
+    @Test
+    public void shouldSumAllSameGenre() {
+        GameStore store = new GameStore();
+        Game game1 = store.publishGame("Нетология Баттл Онлайн", "Аркады");
+        Game game2 = store.publishGame("Нетология Страйк", "Стрелялки");
+        Game game3 = store.publishGame("Нетология Квест", "Аркады");
+
+        Player player1 = new Player("Petya");
+        player1.installGame(game1);
+        player1.installGame(game2);
+        player1.installGame(game3);
+        player1.play(game1, 3);
+        player1.play(game1, 2);
+        player1.play(game2, 4);
+        player1.play(game3, 2);
+
+
+        int expected = 7;
+        int actual = player1.sumGenre("Аркады");
+        assertEquals(expected, actual);
+    }
+
+    /**
+     * Тест проверяет возвращение наименования игры по ее типу и времени игры
+     */
+    @Test
+    public void shouldReturnName() {
+        GameStore store = new GameStore();
+        Game game1 = store.publishGame("Нетология Баттл Онлайн", "Аркады");
+        Game game2 = store.publishGame("Нетология Страйк", "Стрелялки");
+        Game game3 = store.publishGame("Нетология Квест", "Аркады");
+
+        Player player1 = new Player("Petya");
+        player1.installGame(game1);
+        player1.installGame(game2);
+        player1.installGame(game3);
+        player1.play(game1, 3);
+        player1.play(game1, 2);
+        player1.play(game2, 4);
+        player1.play(game3, 4);
+
+
+        String expected = "Нетология Баттл Онлайн";
+       // String actual = player1.mostPlayerByGenre("Аркады");
+        // assertEquals(expected, actual);
+    }
+
+
+    /** Тест проверяет добавление игры без ее установки */
+    @Test
+    public void notShouldAddGame() {
+        GameStore store = new GameStore();
+        Game game1 = store.publishGame("Нетология Баттл Онлайн", "Аркады");
+        Game game2 = store.publishGame("Нетология Страйк", "Стрелялки");
+        Game game3 = store.publishGame("Нетология Квест", "Аркады");
+
+        Player player1 = new Player("Petya");
+        player1.installGame(game1);
+        player1.play(game1, 3);
+        player1.play(game2, 4);
+
+
+//        String expected = "Нетология Баттл Онлайн";
+//        String actual = player1.mostPlayerByGenre("Аркады");
+//        assertEquals(expected, actual);
+    }
+
+    /**
+     * Тест проверяет суммирование времени данного типы, если игрок не играл в этот тип
+     */
+    @Test
+    public void notShouldReturnTimeGame() {
+        GameStore store = new GameStore();
+        Game game1 = store.publishGame("Нетология Баттл Онлайн", "Аркады");
+        Game game3 = store.publishGame("Нетология Квест", "Аркады");
+
+        Player player1 = new Player("Petya");
+        player1.installGame(game1);
+        player1.installGame(game3);
+        player1.play(game1, 3);
+        player1.play(game1, 2);
+        player1.play(game3, 4);
+
+
+        int expected = 0;
+        int actual = player1.sumGenre("Стрелялки");
+        assertEquals(expected, actual);
+    }
     // другие ваши тесты
 }
