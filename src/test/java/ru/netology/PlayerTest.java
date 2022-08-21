@@ -1,6 +1,8 @@
 package ru.netology;
 
 import static org.junit.jupiter.api.Assertions.*;
+
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 public class PlayerTest {
@@ -95,17 +97,14 @@ public class PlayerTest {
         GameStore store = new GameStore();
         Game game1 = store.publishGame("Нетология Баттл Онлайн", "Аркады");
         Game game2 = store.publishGame("Нетология Страйк", "Стрелялки");
-        Game game3 = store.publishGame("Нетология Квест", "Аркады");
 
         Player player1 = new Player("Petya");
         player1.installGame(game1);
         player1.play(game1, 3);
-        player1.play(game2, 4);
 
-
-//        String expected = "Нетология Баттл Онлайн";
-//        String actual = player1.mostPlayerByGenre("Аркады");
-//        assertEquals(expected, actual);
+        Assertions.assertThrows(NotInstallGame.class, () -> {
+            player1.play(game2, 4);
+        });
     }
 
     /**
@@ -124,10 +123,9 @@ public class PlayerTest {
         player1.play(game1, 2);
         player1.play(game3, 4);
 
-
-        int expected = 0;
-        int actual = player1.sumGenre("Стрелялки");
-        assertEquals(expected, actual);
+        Assertions.assertThrows(NotInstallGame.class, () -> {
+            player1.sumGenre("Стрелялки");
+        });
     }
     // другие ваши тесты
 }
