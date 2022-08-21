@@ -114,14 +114,10 @@ public class PlayerTest {
     public void notShouldReturnTimeGame() {
         GameStore store = new GameStore();
         Game game1 = store.publishGame("Нетология Баттл Онлайн", "Аркады");
-        Game game3 = store.publishGame("Нетология Квест", "Аркады");
 
         Player player1 = new Player("Petya");
         player1.installGame(game1);
-        player1.installGame(game3);
         player1.play(game1, 3);
-        player1.play(game1, 2);
-        player1.play(game3, 4);
 
         Assertions.assertThrows(NotInstallGame.class, () -> {
             player1.sumGenre("Стрелялки");
