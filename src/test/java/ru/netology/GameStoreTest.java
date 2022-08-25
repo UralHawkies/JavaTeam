@@ -1,6 +1,8 @@
 package ru.netology;
 
 import static org.junit.jupiter.api.Assertions.*;
+
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 public class GameStoreTest {
@@ -14,5 +16,44 @@ public class GameStoreTest {
         assertTrue(store.containsGame(game));
     }
 
-    // другие ваши тесты
+    @Test
+    public void shouldSumPlayedTime() {
+
+        GameStore store = new GameStore();
+
+        store.addPlayTime("Petya", 10);
+        store.addPlayTime("Oleg", 20);
+
+        int actual = store.getSumPlayedTime();
+        int expected = 30;
+
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    public void shouldRegisterAndAddTime() {
+
+        GameStore store = new GameStore();
+
+        store.addPlayTime("Petya", 0);
+        store.addPlayTime("Petya", 10);
+
+        String actual = store.getMostPlayer();
+        String expected = "Petya";
+
+        assertEquals(expected,actual);
+    }
+
+    @Test
+    public void shouldAcceptMostTimeWhenOne() {
+
+        GameStore store = new GameStore();
+
+        store.addPlayTime("Petya", 1);
+
+        String actual = store.getMostPlayer();
+        String expected = "Petya";
+
+        assertEquals(expected, actual);
+    }
 }
