@@ -26,7 +26,9 @@ public class Player {
      * если игра уже была, никаких изменений происходить не должно
      */
     public void installGame(Game game) {
-        playedTime.put(game, 0);
+        if (!playedTime.containsKey(game)) {
+            playedTime.put(game, 0);
+        }
     }
 
     /**
@@ -41,7 +43,7 @@ public class Player {
         if (playedTime.containsKey(game)) {
             playedTime.put(game, playedTime.get(game) + hours);
         } else {
-            throw new RuntimeException("Игра" + game + "не установлена");
+            throw new NotInstallGame("Игра" + game + "не установлена");
         }
         return playedTime.get(game);
     }
@@ -68,7 +70,7 @@ public class Player {
         int mostTime = 0;
         String mostGame = null;
         for (Game game : playedTime.keySet()) {
-            if(genre.equals(game.getGenre()) && mostTime < playedTime.get(game)) {
+            if (genre.equals(game.getGenre()) && mostTime < playedTime.get(game)) {
                 mostTime = playedTime.get(game);
                 mostGame = game.getTitle();
             }

@@ -86,8 +86,8 @@ public class PlayerTest {
 
 
         String expected = "Нетология Баттл Онлайн";
-       // String actual = player1.mostPlayerByGenre("Аркады");
-        // assertEquals(expected, actual);
+        String actual = player1.mostPlayerByGenre("Аркады");
+        assertEquals(expected, actual);
     }
 
 
@@ -102,7 +102,7 @@ public class PlayerTest {
         player1.installGame(game1);
         player1.play(game1, 3);
 
-        Assertions.assertThrows(NotInstallGame.class, () -> {
+        Assertions.assertThrows(ru.netology.NotInstallGame.class, () -> {
             player1.play(game2, 4);
         });
     }
@@ -119,9 +119,10 @@ public class PlayerTest {
         player1.installGame(game1);
         player1.play(game1, 3);
 
-        Assertions.assertThrows(NotInstallGame.class, () -> {
-            player1.sumGenre("Стрелялки");
-        });
+        int expected = 0;
+        int actual = player1.sumGenre("Стрелялки");
+        assertEquals(expected, actual);
+
     }
-    // другие ваши тесты
+
 }
