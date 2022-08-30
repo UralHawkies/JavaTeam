@@ -56,4 +56,19 @@ public class GameStoreTest {
 
         assertEquals(expected, actual);
     }
+
+    @Test
+    public void shouldFindMostTimePlayer() {
+
+        GameStore store = new GameStore();
+
+        store.addPlayTime("Petya", 30);
+        store.addPlayTime("Oleg", 20);
+        store.addPlayTime("Ivan", 50);
+
+        String actual = store.getMostPlayer();
+        String expected = "Ivan";
+
+        assertEquals(expected, actual);
+    }
 }
